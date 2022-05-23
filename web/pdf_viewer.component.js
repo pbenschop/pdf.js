@@ -27,6 +27,7 @@ import {
 import { parseQueryString, ProgressBar } from "./ui_utils.js";
 import { PDFSinglePageViewer, PDFViewer } from "./pdf_viewer.js";
 import { AnnotationLayerBuilder } from "./annotation_layer_builder.js";
+import { AppOptions } from "./app_options.js"; // Betsydog
 import { DownloadManager } from "./download_manager.js";
 import { EventBus } from "./event_utils.js";
 import { GenericL10n } from "./genericl10n.js";
@@ -46,6 +47,7 @@ const pdfjsBuild = PDFJSDev.eval("BUNDLE_BUILD");
 
 export {
   AnnotationLayerBuilder,
+  AppOptions, // Betsydog
   DefaultAnnotationLayerFactory,
   DefaultStructTreeLayerFactory,
   DefaultTextLayerFactory,

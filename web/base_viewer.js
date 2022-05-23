@@ -61,7 +61,9 @@ import {
   watchScroll,
 } from "./ui_utils.js";
 import { AnnotationLayerBuilder } from "./annotation_layer_builder.js";
+import { AppOptions } from "./app_options.js"; // Betsydog
 import { NullL10n } from "./l10n_utils.js";
+import { PDFCursorTools } from "./pdf_cursor_tools.js"; // Betsydog
 import { PDFPageView } from "./pdf_page_view.js";
 import { PDFRenderingQueue } from "./pdf_rendering_queue.js";
 import { SimpleLinkService } from "./pdf_link_service.js";
@@ -258,7 +260,9 @@ class BaseViewer {
     this.textLayerMode = options.textLayerMode ?? TextLayerMode.ENABLE;
     this.#annotationMode =
       options.annotationMode ?? AnnotationMode.ENABLE_FORMS;
-    this.imageResourcesPath = options.imageResourcesPath || "";
+    // this.imageResourcesPath = options.imageResourcesPath || "";
+    this.imageResourcesPath =
+      options.imageResourcesPath || AppOptions.get("imageResourcesPath"); // Betsydog
     this.enablePrintAutoRotate = options.enablePrintAutoRotate || false;
     this.renderer = options.renderer || RendererType.CANVAS;
     this.useOnlyCssZoom = options.useOnlyCssZoom || false;
@@ -305,6 +309,13 @@ class BaseViewer {
     // time to initialize *and* register 'baseviewerinit' event listeners.
     Promise.resolve().then(() => {
       this.eventBus.dispatch("baseviewerinit", { source: this });
+    });
+
+    // Betsydog
+    this.pdfCursorTools = new PDFCursorTools({
+      container: this.container,
+      eventBus: this.eventBus,
+      cursorToolOnLoad: AppOptions.get("cursorToolOnLoad"),
     });
   }
 
